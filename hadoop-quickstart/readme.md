@@ -107,5 +107,5 @@ hdfs oev -p xml -i /tmp/hadoop-hadoop/dfs/name/current/edits_inprogress_00000000
 ### How can I put a file with some test values?
 
 ```bash
-echo "1 2 3 4 5 6 7 8 9" >> data.txt && hdfs dfs -put data.txt /data.txt`
+echo "1 2 3 4 5 6 7 8 9" >> data.txt && hdfs dfs -put data.txt /data.txt
 ```
