@@ -19,8 +19,7 @@ docker-compose up -d
 ```
 
 > [!WARNING]
-> Verify you see 4 containers under `hadoop-quickstart` in Docker desktop.
-> There should be one continer per node (name node, data node, ...).
+> Verify you see 5 containers under `hadoop-quickstart` in Docker desktop.
 
 ## Using the Hadoop client
 
