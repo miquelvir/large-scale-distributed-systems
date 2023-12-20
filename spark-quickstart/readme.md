@@ -19,20 +19,21 @@ mvn -version
 
 
 ## Running locally
-1. Package the Java applicationa nd dependencies in a `.jar`:
+1. Package the Java application and dependencies in a `.jar`:
 ```bash
 mvn package
 ```
 
 2. Submit to Spark
 ```bash
-docker run -it  $(docker build -q .)
+docker run --network host -it  $(docker build -q .)
 ```
 
 > [!TIP]
 > `docker build -q .` reads the `Dockerfile` file 
 > and builds a Docker image with your `.jar` and Spark.
 > Then, `docker run -it` runs it.
+> `--network host` is useful to access a Hadoop cluster running locally.
 
 ## FAQ
 ### How to change what class is run?

@@ -11,39 +11,37 @@ import java.util.Iterator;
 import java.util.List;
 
 
-class SumAggregate implements Serializable {
-    public SumAggregate(Double s){
+class SumHadoopAggregate implements Serializable {
+    public SumHadoopAggregate(Double s){
         Sum = s;
     }
     public Double Sum = 0.0;
 }
 
 
-public class SumSample {
+public class SumHadoopSample {
     private static Iterator<String> ParseNumbers(String numbers){
         String[] dividedNumbers = numbers.split(" ");
         return Arrays.asList(dividedNumbers).iterator();
     }
 
     public static void main(String[] args) throws IOException {
-        SparkConf conf = new SparkConf().setAppName("sum");
+        SparkConf conf = new SparkConf()
+                .setAppName("sum-hadoop")
+                .set("fs.defaultFS", "hdfs://localhost:8020/");
         SparkContext ssc = SparkContext.getOrCreate(conf);
 
         // spark uses Scala by default,
         // we need to create a JavaSparkContext to use it with Java
         JavaSparkContext sc = JavaSparkContext.fromSparkContext(ssc);
 
-        // input data
-        List<String> jobs = new ArrayList<>();
-        jobs.add("1 2 3");
-        jobs.add("4 5 6");
-        jobs.add("7 8 9");
-
-        // parallelize each string with numbers (i.e. each to a different worker)
-        JavaRDD<String> inputs = sc.parallelize(jobs);
+        // load data from hadoop
+        // you will need to publish the file to hadoop first!
+        // see `How can I put a file with some test values?` inside `./hadoop-quickstart`
+        JavaRDD<String> inputs = sc.textFile("hdfs://localhost:8020/data.txt");
 
         // convert the string with spaces to an array/iterator
-        JavaRDD<String> stringNumbers = inputs.flatMap(SumSample::ParseNumbers);
+        JavaRDD<String> stringNumbers = inputs.flatMap(SumHadoopSample::ParseNumbers);
 
         // convert each from string to double
         JavaRDD<Double> numbers = stringNumbers.map(Double::parseDouble);
