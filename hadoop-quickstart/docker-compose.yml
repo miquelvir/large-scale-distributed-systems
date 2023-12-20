@@ -44,3 +44,8 @@ services:
     command: ["yarn", "nodemanager"]
     env_file:
       - ./config
+  testclient:
+    image: apache/hadoop:3
+    command: ["sleep", "infinity"]
+    env_file:
+      - ./config

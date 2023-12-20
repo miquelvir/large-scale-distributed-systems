@@ -19,18 +19,20 @@ docker-compose up -d
 ```
 
 > [!WARNING]
-> Verify you see 5 containers under `hadoop-quickstart` in Docker desktop.
+> Verify you see 6 containers under `hadoop-quickstart` in Docker desktop.
 
 ## Using the Hadoop client
 
 1. Open a shell in the name node
 ```bash
-docker exec -it hadoop-quickstart-namenode-1 /bin/sh
+docker exec -it hadoop-quickstart-testclient-1 /bin/sh
 ```
 
 > [!TIP]
 > The `apache/hadoop` container image conveniently has the `hdfs` CLI client.
-> We can use it to send and download files from HDFS. 
+> We can use it to send and download files from the HDFS cluster.
+> The `testclient` container does nothing in the cluster (it is not any node).
+> `testclient` it is just there for use to open a shell and run CLI commands.
 
 2. Download an image to use for testing
 ```bash
